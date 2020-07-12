@@ -73,7 +73,7 @@
                                 @{{ $d.Description | markdown | e | html }}@
                             </p>
                             <div class="request-item">
-                                <div class="panel-group" id="accordion-@{{ $d.Name | snake }}@">
+                                <!-- <div class="" id="accordion-@{{ $d.Name | snake }}@"> -->
                                     <!-- single request item -->
                                     @{{ range $ii, $item := $d.Items }}@
                                         <div class="panel panel-@{{ $item.Request.Method | color }}@" id="jump-@{{ $d.Name | snake }}@-@{{ $item.Name | snake }}@">
@@ -83,7 +83,7 @@
                                             </small>
                                             <a class="text-@{{ $item.Request.Method | color }}@" data-toggle="collapse" data-parent="#accordion-@{{ $d.Name | snake }}@" href="#collapse-@{{ $d.Name | snake }}@-@{{ $item.Name | snake }}@">
                                                 <h4 class="panel-title">
-                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                    <span class="glyphicon"></span>
                                                     @{{ if $item.Name }}@
                                                         <strong>@{{ $item.Name }}@</strong> &nbsp;|&nbsp;
                                                     @{{ end }}@
@@ -95,7 +95,7 @@
                                                 </h4>
                                             </a>
                                         </div>
-                                        <div id="collapse-@{{ $d.Name | snake }}@-@{{ $item.Name | snake }}@" class="panel-collapse collapse">
+                                        <div id="collapse-@{{ $d.Name | snake }}@-@{{ $item.Name | snake }}@" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 @{{ if $item.Request.Description }}@
                                                 <h5 class="label label-default">Description</h5>
@@ -394,7 +394,7 @@
                                     </div>
                                     @{{ end }}@
                                     <!-- end single request item -->
-                                </div>
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
