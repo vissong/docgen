@@ -257,10 +257,18 @@
                                             <!-- <br> -->
                                         <!-- Iterate responses -->
                                             @{{ range $ir, $resp := $item.Responses }}@
-                                                <section id="req_res_@{{ $d.Name | snake }}@_@{{ $item.Name | snake }}@_@{{ $ir }}@_@{{ $resp.Name | snake }}@" style="display: block;padding-bottom: 8px;">
+                                                <section id="req_res_@{{ $d.Name | snake }}@_@{{ $item.Name | snake }}@_@{{ $ir }}@_@{{ $resp.Name | snake }}@" style="display: block;padding-bottom: 8px;padding-top: 8px;border-bottom: 1px solid #999;">
 
                                                     @{{ if $resp.Name }}@
-                                                        <h5>@{{$resp.Name}}@ Request:</h5>
+                                                        <div class="row">
+                                                        <div class="col-md-3" style="">
+                                                            Example Request:
+                                                        </div>
+                                                        <div class="col-md-9" style="text-align: right;padding-right: 20px;">
+                                                            <span class="label label-warning">@{{$resp.Name}}@</span>
+                                                        </div>
+                                                        </div>
+                                                        <!-- <h5>Example Request: <right>@{{$resp.Name}}@</right></h5> -->
                                                         <pre>URL: @{{ $resp.OriginalRequest.URL.Raw | e }}@</pre>
 
                                                         @{{ if $resp.OriginalRequest.Headers }}@
@@ -270,7 +278,7 @@
                                                             <tr>
                                                                 <th>Key</th>
                                                                 <th>Value</th>
-                                                                <th>Description</th>
+                                                                <!-- <th>Description</th> -->
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -278,7 +286,7 @@
                                                             <tr>
                                                                 <td>@{{ $h.Key | e }}@</td>
                                                                 <td>@{{ $h.Value | e }}@</td>
-                                                                <td>@{{ $h.Description | markdown | e | html }}@</td>
+                                                                <!-- <td>@{{ $h.Description | markdown | e | html }}@</td> -->
                                                             </tr>
                                                             @{{ end }}@
                                                             </tbody>
@@ -292,7 +300,7 @@
                                                             <tr>
                                                                 <th>Key</th>
                                                                 <th>Value</th>
-                                                                <th>Description</th>
+                                                                <!-- <th>Description</th> -->
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -300,7 +308,7 @@
                                                             <tr>
                                                                 <td>@{{ $h.Key | e }}@</td>
                                                                 <td>@{{ $h.Value | e }}@</td>
-                                                                <td>@{{ $h.Description | markdown | e | html }}@</td>
+                                                                <!-- <td>@{{ $h.Description | markdown | e | html }}@</td> -->
                                                             </tr>
                                                             @{{ end }}@
                                                             </tbody>
@@ -314,7 +322,7 @@
                                                             <tr>
                                                                 <th>Key</th>
                                                                 <th>Value</th>
-                                                                <th>Description</th>
+                                                                <!-- <th>Description</th> -->
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -322,7 +330,7 @@
                                                             <tr>
                                                                 <td>@{{ $q.Key | e }}@</td>
                                                                 <td>@{{ $q.Value | e }}@</td>
-                                                                <td>@{{ $q.Description | markdown | e | html }}@</td>
+                                                                <!-- <td>@{{ $q.Description | markdown | e | html }}@</td> -->
                                                             </tr>
                                                             @{{ end }}@
                                                             </tbody>
@@ -347,7 +355,7 @@
                                                                 <tr>
                                                                     <th>Key</th>
                                                                     <th>Value</th>
-                                                                    <th>Description</th>
+                                                                    <!-- <th>Description</th> -->
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -355,7 +363,7 @@
                                                                 <tr>
                                                                     <td>@{{ $u.Key | e }}@</td>
                                                                     <td>@{{ $u.Value | e }}@</td>
-                                                                    <td>@{{ $u.Description | markdown | e | html }}@</td>
+                                                                    <!-- <td>@{{ $u.Description | markdown | e | html }}@</td> -->
                                                                 </tr>
                                                                 @{{ end }}@
                                                                 </tbody>
@@ -369,7 +377,7 @@
                                                                 <tr>
                                                                     <th>Key</th>
                                                                     <th>Value</th>
-                                                                    <th>Description</th>
+                                                                    <!-- <th>Description</th> -->
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -377,7 +385,7 @@
                                                                 <tr>
                                                                     <td>@{{ $u.Key | e }}@</td>
                                                                     <td>@{{ $u.Value | e }}@</td>
-                                                                    <td>@{{ $u.Description | markdown | e | html }}@</td>
+                                                                    <!-- <td>@{{ $u.Description | markdown | e | html }}@</td> -->
                                                                 </tr>
                                                                 @{{ end }}@
                                                                 </tbody>
@@ -387,14 +395,23 @@
                                                         @{{ end }}@
                                                     @{{ end }}@
 
-                                                    <h5>@{{$resp.Name}}@ Response</h5>
+                                                    <div class="row">
+                                                        <div class="col-md-3" style="">
+                                                            Example Response:
+                                                        </div>
+                                                        <div class="col-md-9" style="text-align: right;padding-right: 20px;">
+                                                            <span class="label label-warning">@{{$resp.Name}}@</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <h5>@{{$resp.Name}}@ Response</h5> -->
                                                     @{{ if $resp.Body }}@
-                                                    <h5 class="label label-success">Body</h5>
+                                                    
+                                                    <h5 class="label label-success">Body</h5>&nbsp;&nbsp;<h5 class="label label-info">Code</h5>&nbsp;<strong>@{{ $resp.Code }}@</strong>
                                                     <span class="resp-prettyprint">
                                                         @{{ $resp.Body | eHTML }}@
                                                     </span>
                                                     <div class="clearfix"></div>
-                                                    <h5 class="label label-info">Code:</h5> <strong>@{{ $resp.Code }}@</strong>
+                                                    
                                                     @{{ end }}@
                                             
                                                 </section>
@@ -458,9 +475,7 @@
             @{{ .Assets.ScriptsJS | js }}@
         </script>
     </body>
-    <br>
-    <br>
-    <footer class="navbar-default navbar-fixed-bottom">
+    <footer class="navbar-default" style="background-color: #f4f4f4;">
         <div class="container-fluid">
           <div class="span12 text-center">
             <span data-toggle="tooltip" title="If the application help you, please feel free to give a star to the project in github. Your star inspire me to work more on open-source projects like this!">Made with <em class="love-color">&#9829;</em> by <a href="https://github.com/thedevsaddam" target="_blank" class="text-muted">thedevsaddam</a> | Generated at: @{{date_time}}@ by <a href="https://github.com/thedevsaddam/docgen" target="_blank" class="text-muted">docgen</a></span>

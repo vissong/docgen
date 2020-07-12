@@ -102,6 +102,8 @@ func readJSONtoHTML(str string) *bytes.Buffer {
 		log.Fatal("parsing json file", err.Error())
 	}
 
+	// fmt.Println(rt)
+
 	// populate envCollection with collection variables
 	if len(rt.Variables) > 0 {
 		envCollection.SetCollectionVariables(rt.Variables)
