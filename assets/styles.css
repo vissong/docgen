@@ -4,7 +4,7 @@ body{
 }
 .panel-default>.panel-heading {
     color: #333;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     border-color: #efefef;
 }
 .request-item .panel-title{
