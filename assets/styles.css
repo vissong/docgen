@@ -2,6 +2,10 @@ body{
 	color: #555555 !important;
 	letter-spacing: 0.25px !important;
 }
+
+table tr {
+	word-break: break-all;
+}
 .panel-default>.panel-heading {
     color: #333;
     /* background-color: #ffffff; */
@@ -62,4 +66,9 @@ pre {outline: 1px solid #ffffff; padding: 5px; margin: 5px; }
 .love-color{
 	color: #c0392b;
 	font-weight: bold;
+}
+
+.resp-prettyprint pre {
+	height: 350px;
+	overflow: scroll;
 }

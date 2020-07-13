@@ -2,6 +2,7 @@ package collection
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"sort"
 )
@@ -60,6 +61,7 @@ type (
 		Body        Body    `json:"body"`
 		URL         URL     `json:"url"`
 		Description string  `json:"description"`
+		CurlCode    string
 	}
 
 	// Response describes a request resposne
@@ -99,6 +101,8 @@ func (d *Documentation) Open(rdr io.Reader) error {
 		return err
 	}
 
+	// fmt.Print(d)
+
 	// build the collections
 	d.build()
 
@@ -110,6 +114,9 @@ func (d *Documentation) Open(rdr io.Reader) error {
 
 	// sort the collections in lexical order
 	d.sortCollections()
+
+	// build example curl
+	d.buildRequestCurl()
 
 	return nil
 }
@@ -123,6 +130,7 @@ func (d *Documentation) build() {
 			if d.Collections[i].Request.Method == "" { //a collection with no sub-items and request method is empty
 				continue
 			}
+			// fmt.Println(d.Collections[i].Request)
 			c.Items = append(c.Items, Item{
 				Name:      d.Collections[i].Name,
 				Request:   d.Collections[i].Request,
@@ -257,4 +265,45 @@ func (d *Documentation) removeItemResponseRequestDisabledField() {
 		}
 	}
 	return
+}
+
+const CURL_T = `
+curl --location --request %s '%s'`
+
+func (d *Documentation) buildRequestCurl() {
+	for i, collection := range d.Collections {
+		for j, item := range collection.Items {
+			for k, resp := range item.Responses {
+				curl_str := fmt.Sprintf(CURL_T, resp.OriginalRequest.Method, resp.OriginalRequest.URL.Raw)
+
+				if len(resp.OriginalRequest.Headers) > 0 {
+					for _, header := range resp.OriginalRequest.Headers {
+						curl_str += fmt.Sprintf(" \\\n --header '%s: %s'", header.Key, header.Value)
+					}
+				}
+
+				if resp.OriginalRequest.Body.Mode == "formdata" {
+					for _, formdata := range resp.OriginalRequest.Body.FormData {
+						curl_str += fmt.Sprintf(" \\\n --form '%s: %s'", formdata.Key, formdata.Value)
+					}
+				}
+
+				if resp.OriginalRequest.Body.Mode == "urlencoded" {
+					for _, urlencode := range resp.OriginalRequest.Body.URLEncoded {
+						curl_str += fmt.Sprintf(" \\\n --data-urlencode '%s: %s'", urlencode.Key, urlencode.Value)
+					}
+				}
+
+				if resp.OriginalRequest.Body.Mode == "raw" {
+					curl_str += fmt.Sprintf(" \\\n --data-raw '%s'", resp.OriginalRequest.Body.Raw)
+				}
+
+				d.Collections[i].Items[j].Responses[k].OriginalRequest.CurlCode = curl_str
+
+				// fmt.Println(d.Collections[i].Items[j].Responses[k].OriginalRequest.CurlCode)
+				// fmt.Println(resp.OriginalRequest)
+				return
+			}
+		}
+	}
 }
