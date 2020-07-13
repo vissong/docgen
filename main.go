@@ -3,7 +3,7 @@
 package main
 
 import (
-	"github.com/thedevsaddam/docgen/cmd"
+	"github.com/vissong/docgen/cmd"
 )
 
 func main() {

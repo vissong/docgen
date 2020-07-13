@@ -1,6 +1,6 @@
-module github.com/thedevsaddam/docgen
+module github.com/vissong/docgen
 
-go 1.12
+go 1.13
 
 require (
 	github.com/davecgh/go-spew v1.1.1
@@ -13,6 +13,7 @@ require (
 	github.com/tdewolff/minify v2.3.4+incompatible
 	github.com/tdewolff/parse v2.3.2+incompatible // indirect
 	github.com/tdewolff/test v1.0.3 // indirect
+	github.com/thedevsaddam/docgen v0.0.0-20200519060602-6aab95ec6b87
 	golang.org/x/tools v0.0.0-20191118222007-07fc4c7f2b98 // indirect
 	gopkg.in/russross/blackfriday.v2 v2.0.0
 )
